@@ -46,10 +46,18 @@ the result is not already a preview.
 ## Install
 
 In DSH: **Plugins → Add plugin →** search `dsh-output-budget` → **Install**, then enable it.
-Or from a checkout:
+
+From the CLI, once the package is on npm:
 
 ```sh
 dsh plugin --profile <profile> add dsh-output-budget
+```
+
+Before the npm release, install the tagged build:
+
+```sh
+dsh plugin --profile <profile> add \
+  https://github.com/YOMXXX/dsh-output-budget/releases/download/v0.1.0/dsh-output-budget-0.1.0.tgz
 ```
 
 The plugin is host-only: no client bundle, no build step, no external binary.
@@ -126,8 +134,10 @@ node scripts/ab.mjs records.jsonl
 ## Compatibility
 
 - DSH `^0.2.3-alpha.2`.
-- Verified on DSH Desktop `0.2.3-alpha.2` (macOS): `git status`/`git log` digests and the failure
-  passthrough were observed in a live session; the spilled locator was written and readable.
+- Verified on DSH Desktop `0.2.3-alpha.2` (macOS) in a live session: the `git status` and `git log`
+  digests fired, a failing command kept its full output, and the spilled locator was written and read
+  back. The `/budget` command and the Plugins-page metadata were verified through unit tests and the
+  Config projection, not by clicking the UI.
 
 ## License
 

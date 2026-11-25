@@ -41,10 +41,18 @@ $ git log --oneline -80
 ## 安装
 
 DSH 里：**插件 → 添加插件 →** 搜索 `dsh-output-budget` → **安装**，然后启用。
-或用命令行：
+
+命令行（npm 上线后）：
 
 ```sh
 dsh plugin --profile <profile> add dsh-output-budget
+```
+
+npm 上线前，用 Release 里的 tarball：
+
+```sh
+dsh plugin --profile <profile> add \
+  https://github.com/YOMXXX/dsh-output-budget/releases/download/v0.1.0/dsh-output-budget-0.1.0.tgz
 ```
 
 纯 Host 插件：无 client 包、无需构建、无外部二进制。
@@ -115,8 +123,9 @@ node scripts/ab.mjs records.jsonl
 ## 兼容性
 
 - DSH `^0.2.3-alpha.2`。
-- 已在 DSH Desktop `0.2.3-alpha.2`（macOS）实测：`git status`/`git log` 摘要生效、失败命令原样保留、
-  spill locator 可写可读。
+- 已在 DSH Desktop `0.2.3-alpha.2`（macOS）真实会话实测：`git status`/`git log` 摘要生效、失败命令
+  原样保留、spill locator 可写可读。`/budget` 命令与 Plugins 页元数据经单测与 Config 投影验证，
+  尚未用鼠标点过界面。
 
 ## 许可
 
