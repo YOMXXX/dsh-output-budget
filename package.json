@@ -1,0 +1,63 @@
+{
+  "name": "dsh-output-budget",
+  "version": "0.1.0",
+  "description": "Shape-aware tool-output budgeting for DeepSeek Harness: digest noisy command output before it reaches the model, keep the full text one read away, and never truncate errors.",
+  "type": "module",
+  "license": "MIT",
+  "author": "liguanchen",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "src",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "README.zh.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "dsh",
+    "deepseek-harness",
+    "cordis",
+    "token",
+    "context",
+    "tool-output",
+    "budget",
+    "compaction"
+  ],
+  "engines": {
+    "dsh": "^0.2.3-alpha.2"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-spill-policy": "^0.2.3-alpha.2",
+    "@deepseek-ai/schemastery": "^3.20.0-alpha.1"
+  },
+  "scripts": {
+    "test": "node --test --import ./test-support/register.mjs",
+    "pack:check": "npm pack --dry-run"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOMXXX/dsh-output-budget.git"
+  },
+  "homepage": "https://github.com/YOMXXX/dsh-output-budget#readme",
+  "bugs": {
+    "url": "https://github.com/YOMXXX/dsh-output-budget/issues"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

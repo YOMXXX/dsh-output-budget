@@ -1,0 +1,5 @@
+# Bundle patch layer: one Host row. This plugin has no client half, no build
+# step and no external binary, so the row loads index.js directly.
+- insert:
+    - id: dsh-output-budget
+      name: dsh-output-budget

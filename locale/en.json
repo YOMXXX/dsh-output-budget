@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Output budget",
+    "description": "Digests noisy tool output before it reaches the model: full text stays one read away, and errors are never truncated."
+  }
+}
