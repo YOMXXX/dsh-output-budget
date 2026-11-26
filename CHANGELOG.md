@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1 — 2026-11-26
+
+- Per-shape table (runs, saved bytes, share) replaces the inline legend; the sparkline is a compact
+  right-aligned histogram.
+- The chip lives in `conversation.input.right`, beside the other composer tooling.
+- Slot entries are wrapped in an error boundary, so a render fault degrades to a plain pill instead of
+  blanking the entry.
+
 ## 0.2.0 — 2026-11-26
 
 Browser half, styled after the harness's own dashboard panels.

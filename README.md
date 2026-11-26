@@ -36,8 +36,8 @@ the result is not already a preview.
 ## In the app
 
 A compact chip sits in the composer tool row and shows how much this session has saved; clicking it
-opens the budget panel: a KPI band (saved, rewrites, compression), a per-shape stacked bar with
-legend and sparkline, and the last digests with their command and reduction. The chip and panel read
+opens the budget panel: a KPI band (saved, rewrites, compression), a per-shape stacked bar with a
+runs/saved/share table and a sparkline, and the last digests with their command and reduction. The chip and panel read
 one session projection, so they update on every committed tool result without polling.
 
 ## What it never does

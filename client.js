@@ -120,9 +120,14 @@ window.__ModuleLoader__.load({
 .dob-empty-title{font-size:13px}
 .dob-empty-hint{margin-top:6px;font-size:12px;line-height:1.6;color:var(--dsw-alias-label-tertiary)}
 .dob-foot{margin-top:18px;padding-top:12px;border-top:1px solid var(--dsw-alias-border-l1);font-size:11px;line-height:1.6;color:var(--dsw-alias-label-tertiary)}
-.dob-spark{display:flex;align-items:flex-end;gap:2px;height:26px;margin-top:10px}
-.dob-spark span{flex:1;min-height:2px;border-radius:2px 2px 0 0;background:var(--dsw-alias-brand-primary);opacity:.5}
-.dob-spark span:last-child{opacity:.95}
+.dob-table{margin-top:8px}
+.dob-tr{display:grid;grid-template-columns:minmax(0,1fr) 44px 76px 44px;gap:10px;align-items:center;padding:5px 2px;border-top:1px dashed var(--dsw-alias-border-l1);font-size:11.5px;color:var(--dsw-alias-label-secondary)}
+.dob-tr:first-child{border-top:0}
+.dob-name{display:inline-flex;align-items:center;gap:7px;color:var(--dsw-alias-label-primary)}
+.dob-tr .num{text-align:right;font-variant-numeric:tabular-nums}
+.dob-spark{display:flex;align-items:flex-end;justify-content:flex-end;gap:2px;height:22px;margin-top:10px;opacity:.9}
+.dob-spark span{flex:0 1 10px;max-width:10px;min-width:2px;min-height:2px;border-radius:2px 2px 0 0;background:var(--dsw-alias-brand-primary);opacity:.45}
+.dob-spark span:last-child{opacity:.9}
 `
 
     /** Shared state between the chip and the root-scoped modal. */
@@ -233,11 +238,18 @@ window.__ModuleLoader__.load({
         })))
     }
 
-    function Legend(props) {
-      return h('div', { className: 'dob-legend' },
-        props.rows.map((row) => h('span', { key: row.shape, className: 'dob-legend-item' },
-          h('span', { className: 'dob-dot', style: { background: colorOf(row.shape) } }),
-          `${labelOf(row.shape)} ${row.count}`,
+    function ShapeTable(props) {
+      const rows = props.rows
+      const total = rows.reduce((sum, row) => sum + row.savedBytes, 0)
+      return h('div', { className: 'dob-table' },
+        rows.map((row) => h('div', { key: row.shape, className: 'dob-tr' },
+          h('span', { className: 'dob-name' },
+            h('span', { className: 'dob-dot', style: { background: colorOf(row.shape) } }),
+            labelOf(row.shape),
+          ),
+          h('span', { className: 'num' }, `${row.count}×`),
+          h('span', { className: 'num' }, bytesOf(row.savedBytes)),
+          h('span', { className: 'num' }, `${percentOf(row.savedBytes, total)}%`),
         )))
     }
 
@@ -366,7 +378,7 @@ window.__ModuleLoader__.load({
                     lastShape === undefined ? '' : `${labelOf(lastShape)} · ${t('now')}`),
                 ),
                 h(StackedBar, { rows }),
-                h(Legend, { rows }),
+                h(ShapeTable, { rows }),
                 h(Spark, { values: items.map((item) => item.omittedBytes) }),
               ),
               h('div', { className: 'dob-section' },
@@ -401,6 +413,42 @@ window.__ModuleLoader__.load({
       return h(PanelView, { data, translate: store.translate })
     }
 
+    /**
+     * A render fault in a slot entry blanks the whole entry; keeping one here
+     * degrades to a minimal control instead of losing the affordance.
+     */
+    function Guarded(Component, fallback) {
+      class Boundary extends React.Component {
+        constructor(props) {
+          super(props)
+          this.state = { failed: false }
+        }
+
+        static getDerivedStateFromError() {
+          return { failed: true }
+        }
+
+        componentDidCatch(error) {
+          try {
+            console.error('output-budget: panel render failed', error)
+          } catch {
+            // ignore logging failures
+          }
+        }
+
+        render() {
+          if (this.state.failed) {
+            return typeof fallback === 'function' ? fallback() : h('span', {
+              className: 'dob-chip', 'data-empty': 'true',
+            }, h(Glyph, { size: 14 }), h('span', null, 'budget'))
+          }
+          return h(Component, this.props)
+        }
+      }
+      Boundary.displayName = `Guarded(${Component.name || 'Component'})`
+      return Boundary
+    }
+
     return {
       inject: ['slots', 'locale'],
       apply(ctx) {
@@ -426,19 +474,19 @@ window.__ModuleLoader__.load({
           }
         }, 'output-budget: styles')
 
-        ctx.slots.inject('conversation.input.left', () => ctx.slots.register({
-          name: 'conversation.input.left',
+        ctx.slots.inject('conversation.input.right', () => ctx.slots.register({
+          name: 'conversation.input.right',
           id: 'output-budget',
-          order: 30,
+          order: 10,
           locale: NS,
-        }, BudgetChip))
+        }, Guarded(BudgetChip)))
 
         ctx.slots.inject('shell.overlay', () => ctx.slots.register({
           name: 'shell.overlay',
           id: 'output-budget-panel',
           order: 50,
           locale: NS,
-        }, BudgetPanel))
+        }, Guarded(BudgetPanel, () => null)))
       },
     }
   },
