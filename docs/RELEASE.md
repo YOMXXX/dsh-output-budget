@@ -8,7 +8,7 @@
 cd <this repo>
 npm login                     # one-time, opens the browser / asks for the 2FA code
 npm pack --dry-run            # confirm the 16-file, ~17 kB tarball
-npm publish                   # 0.1.0 — public, no build step, no install scripts
+npm publish                   # 0.2.1 — public, no build step, no install scripts
 npm view dsh-output-budget version dist-tags.latest
 ```
 
