@@ -10,13 +10,17 @@
  */
 import Schema from '@deepseek-ai/schemastery'
 import { applyBudget } from './src/policy.js'
+import { registerOutputBudget } from './src/projection.js'
 import { createStats } from './src/stats.js'
 
 /** Cordis plugin identity; also the bundle row id. */
 export const name = 'dsh-output-budget'
 
-/** The tool registry is the only hard dependency. */
-export const inject = ['tools']
+/**
+ * The tool registry owns the post-execute waterfall; the projection registry
+ * feeds the dashboard in the composer.
+ */
+export const inject = ['tools', 'sessionProjections']
 
 /**
  * @typedef {object} ConfigShape
@@ -86,6 +90,14 @@ export function apply(ctx, config) {
       return 'output-budget counters reset.'
     }
     return 'usage: /budget [report|on|off|dry-run|apply|reset]'
+  }
+
+  // The panel reads committed events; a profile without the projection service
+  // still gets the budget itself, minus the dashboard.
+  if (ctx.sessionProjections !== undefined) {
+    registerOutputBudget(ctx).catch((error) => {
+      ctx.logger?.warn(`output-budget: projection registration failed (${String(error)})`)
+    })
   }
 
   ctx.on('tools/post-execute', async (exec, result, next) => {

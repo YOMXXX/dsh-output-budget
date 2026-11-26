@@ -31,6 +31,12 @@ $ git log --oneline -80
 
 只有同时满足「长度 ≥ `minChars`」「摘要更短」「不是已有摘要」时才重写。
 
+## 界面
+
+输入框工具条里有一个细条，显示本会话已省的 token，点开是预算面板：KPI（已省 / 重写次数 / 压缩率）、
+按形状的堆叠条与图例、迷你柱状图，以及最近几条摘要（命令、压缩比、字节变化）。细条和面板读同一个会话
+投影，每次工具结果提交都会刷新，不轮询、不走 RPC。
+
 ## 永远不做
 
 - **不重写失败**：`isError`、非零退出码、被信号中断、超时、被沙箱拒绝 —— 原样保留。
@@ -52,7 +58,7 @@ npm 上线前，用 Release 里的 tarball：
 
 ```sh
 dsh plugin --profile <profile> add \
-  https://github.com/YOMXXX/dsh-output-budget/releases/download/v0.1.0/dsh-output-budget-0.1.0.tgz
+  https://github.com/YOMXXX/dsh-output-budget/releases/download/v0.2.0/dsh-output-budget-0.2.0.tgz
 ```
 
 纯 Host 插件：无 client 包、无需构建、无外部二进制。
@@ -124,8 +130,8 @@ node scripts/ab.mjs records.jsonl
 
 - DSH `^0.2.3-alpha.2`。
 - 已在 DSH Desktop `0.2.3-alpha.2`（macOS）真实会话实测：`git status`/`git log` 摘要生效、失败命令
-  原样保留、spill locator 可写可读。`/budget` 命令与 Plugins 页元数据经单测与 Config 投影验证，
-  尚未用鼠标点过界面。
+  原样保留、spill locator 可写可读；细条与面板的注册已在客户端 slot 树里确认生效，但作者没有截图核对
+  排版细节。
 
 ## 许可
 

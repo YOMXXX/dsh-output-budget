@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.0 — 2026-11-26
+
+Browser half, styled after the harness's own dashboard panels.
+
+- **Composer chip**: shows the session's saved tokens and opens the panel.
+- **Budget panel** in `shell.overlay`: KPI band (saved / rewrites / compression), per-shape stacked
+  bar with legend and a sparkline, and the last digests with their command, saved ratio and byte
+  reduction. Root-scoped so the docked composer cannot clip it.
+- **`outputBudget` session projection**: the numbers are folded from committed `tool/call` and
+  `tool/result` events, so they survive fork/replay and need no RPC or polling.
+- Dependency-free projection schemas: the Host half still ships no runtime dependency.
+- `inject` now declares `sessionProjections`.
+
 ## 0.1.0 — 2026-11-25
 
 First release.

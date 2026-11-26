@@ -33,6 +33,13 @@ $ git log --oneline -80
 A rewrite only happens when the result is at least `minChars` long, the preview is strictly smaller, and
 the result is not already a preview.
 
+## In the app
+
+A compact chip sits in the composer tool row and shows how much this session has saved; clicking it
+opens the budget panel: a KPI band (saved, rewrites, compression), a per-shape stacked bar with
+legend and sparkline, and the last digests with their command and reduction. The chip and panel read
+one session projection, so they update on every committed tool result without polling.
+
 ## What it never does
 
 - **Never rewrites a failure.** `isError`, a non-zero exit code, a signal, a timeout, or a sandbox denial
@@ -57,7 +64,7 @@ Before the npm release, install the tagged build:
 
 ```sh
 dsh plugin --profile <profile> add \
-  https://github.com/YOMXXX/dsh-output-budget/releases/download/v0.1.0/dsh-output-budget-0.1.0.tgz
+  https://github.com/YOMXXX/dsh-output-budget/releases/download/v0.2.0/dsh-output-budget-0.2.0.tgz
 ```
 
 The plugin is host-only: no client bundle, no build step, no external binary.
@@ -136,8 +143,8 @@ node scripts/ab.mjs records.jsonl
 - DSH `^0.2.3-alpha.2`.
 - Verified on DSH Desktop `0.2.3-alpha.2` (macOS) in a live session: the `git status` and `git log`
   digests fired, a failing command kept its full output, and the spilled locator was written and read
-  back. The `/budget` command and the Plugins-page metadata were verified through unit tests and the
-  Config projection, not by clicking the UI.
+  back. The chip and panel registrations were verified live through the client slot tree; their visual
+  result was not screenshotted, so the layout itself is unverified by the author.
 
 ## License
 

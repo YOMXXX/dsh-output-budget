@@ -1,6 +1,6 @@
 {
   "name": "dsh-output-budget",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shape-aware tool-output budgeting for DeepSeek Harness: digest noisy command output before it reaches the model, keep the full text one read away, and never truncate errors.",
   "type": "module",
   "license": "MIT",
@@ -9,11 +9,13 @@
   "exports": {
     ".": "./index.js",
     "./locale/*.json": "./locale/*.json",
-    "./icon": "./icon.svg"
+    "./icon": "./icon.svg",
+    "./client": "./client.js"
   },
   "files": [
     "index.js",
     "src",
+    "client.js",
     "cordis.patch.yml",
     "locale/*.json",
     "icon.svg",
@@ -58,6 +60,14 @@
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
     }
   }
 }

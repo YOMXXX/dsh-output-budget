@@ -65,7 +65,7 @@ function fakeContext(options = {}) {
 
 test('the plugin exports the manifest fields the harness reads', () => {
   assert.equal(plugin.name, 'dsh-output-budget')
-  assert.deepEqual(plugin.inject, ['tools'])
+  assert.deepEqual(plugin.inject, ['tools', 'sessionProjections'])
   assert.ok(plugin.Config !== undefined)
   assert.equal(typeof plugin.apply, 'function')
 })
