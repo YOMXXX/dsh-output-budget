@@ -11,6 +11,6 @@ Digests noisy tool output before it reaches the model, keeps the full text one `
 - Spill round trip: the locator printed in the preview returns the complete original.
 - 39 unit tests, including the Cordis glue (`/budget` and the waterfall), plus `scripts/ab.mjs`, an offline replay that fails if a failure line would be lost.
 
-**Install.** No build step, no external binary, no network access at runtime, zero runtime dependencies. Published as `dsh-output-budget@0.2.1`: `dsh plugin add dsh-output-budget`. The browser half is plain ESM that registers a composer chip and a `shell.overlay` panel; the host half ships no dependency.
+**Install.** No build step, no external binary, no network access at runtime, zero runtime dependencies. Published on npm as `dsh-output-budget`: `dsh plugin add dsh-output-budget` (currently 0.2.2). The browser half is plain ESM that registers a composer chip and a `shell.overlay` panel; the host half ships no dependency.
 
 This PR adds one file: `data/plugins/YOMXXX__dsh-output-budget.yml`.
