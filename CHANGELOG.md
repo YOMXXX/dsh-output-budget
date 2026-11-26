@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.2 — 2026-11-26
+
+Docs-only release, so the package page on npm says what is true.
+
+- Install section points at the npm package (`dsh plugin add dsh-output-budget`), with the release tarball as
+  the way to pin one exact build.
+- Drops the stale "host-only, no client bundle" line: 0.2.x ships the composer chip and the budget panel.
+- Adds the plugin-market submission body ([docs/pr-body.md](docs/pr-body.md)).
+
 ## 0.2.1 — 2026-11-26
 
 - Per-shape table (runs, saved bytes, share) replaces the inline legend; the sparkline is a compact

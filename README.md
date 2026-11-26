@@ -54,20 +54,21 @@ one session projection, so they update on every committed tool result without po
 
 In DSH: **Plugins → Add plugin →** search `dsh-output-budget` → **Install**, then enable it.
 
-From the CLI, once the package is on npm:
+From the CLI:
 
 ```sh
 dsh plugin --profile <profile> add dsh-output-budget
 ```
 
-Before the npm release, install the tagged build:
+To pin one exact build instead of tracking `latest`, install the tarball attached to a release:
 
 ```sh
 dsh plugin --profile <profile> add \
-  https://github.com/YOMXXX/dsh-output-budget/releases/download/v0.2.0/dsh-output-budget-0.2.0.tgz
+  https://github.com/YOMXXX/dsh-output-budget/releases/download/v0.2.2/dsh-output-budget-0.2.2.tgz
 ```
 
-The plugin is host-only: no client bundle, no build step, no external binary.
+Nothing is compiled and nothing is downloaded at runtime: the package is plain ESM, with no build step, no
+external binary and no network access.
 
 ## Configuration
 

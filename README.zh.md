@@ -48,20 +48,20 @@ $ git log --oneline -80
 
 DSH 里：**插件 → 添加插件 →** 搜索 `dsh-output-budget` → **安装**，然后启用。
 
-命令行（npm 上线后）：
+命令行：
 
 ```sh
 dsh plugin --profile <profile> add dsh-output-budget
 ```
 
-npm 上线前，用 Release 里的 tarball：
+想固定某个具体版本（而不是跟 `latest`），装 Release 附件里的 tarball：
 
 ```sh
 dsh plugin --profile <profile> add \
-  https://github.com/YOMXXX/dsh-output-budget/releases/download/v0.2.0/dsh-output-budget-0.2.0.tgz
+  https://github.com/YOMXXX/dsh-output-budget/releases/download/v0.2.2/dsh-output-budget-0.2.2.tgz
 ```
 
-纯 Host 插件：无 client 包、无需构建、无外部二进制。
+不编译、运行时也不下载任何东西：纯 ESM，无构建步骤、无外部二进制、无网络访问。
 
 ## 配置
 
